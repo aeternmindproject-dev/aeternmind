@@ -1,0 +1,317 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #000;
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+  overflow-x: hidden;
+}
+
+/* HEADER */
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 20px 50px;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+}
+
+.logo {
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.logo span {
+  color: #00B050;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  gap: 30px;
+
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: 400;
+  transition: color 0.3s;
+}
+
+nav ul li a:hover {
+  color: #2F5597;
+}
+
+/* CARRUSEL */
+.carousel {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  margin-top: 80px; /* espacio por el header */
+}
+
+.carousel-item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.carousel-item.active {
+  opacity: 1;
+  z-index: 5;
+}
+
+.carousel-item video,
+.carousel-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Controles */
+.carousel-controls {
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(-50%);
+  z-index: 10;
+  padding: 0 20px;
+}
+
+.carousel-controls button {
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  transition: background 0.3s;
+}
+
+.carousel-controls button:hover {
+  background: rgba(0, 255, 255, 0.5);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  header {
+    padding: 15px 20px;
+  }
+
+  nav ul {
+    gap: 15px;
+  }
+
+  .logo {
+    font-size: 1.2rem;
+  }
+}
+
+
+
+/* FOOTER */
+footer {
+  background: #000;
+  border-top: 1px solid #111;
+  padding: 60px 10%;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.footer-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.footer-logo h2 {
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+
+.footer-logo span {
+  color: #00B050;
+}
+
+.footer-logo p {
+  font-size: 0.9rem;
+  margin-top: 10px;
+  color: #aaa;
+  line-height: 1.6;
+}
+
+.footer-links h3,
+.footer-contact h3 {
+  margin-bottom: 10px;
+  color: #00B050;
+  font-weight: 500;
+
+}
+
+.footer-links ul {
+  list-style: none;
+font-size: 0.8rem;
+}
+
+.footer-links ul li {
+  margin-bottom: 8px;
+}
+
+.footer-links ul li a {
+  color: #ccc;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-links ul li a:hover {
+  color: #275597;
+}
+
+.footer-contact p {
+  font-size: 0.8rem;
+  margin-bottom: 5px;
+}
+
+.social-icons {
+  margin-top: 10px;
+  display: flex;
+  gap: 15px;
+  font-size: 0.8rem;
+}
+
+.social-icons img {
+  width: 22px;
+  height: 22px;
+  filter: invert(1);
+  opacity: 0.7;
+  transition: opacity 0.3s;
+}
+
+.social-icons img:hover {
+  opacity: 1;
+}
+
+.footer-bottom {
+  text-align: center;
+  border-top: 1px solid #111;
+  padding-top: 15px;
+  font-size: 0.85rem;
+  color: #555;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  footer {
+    padding: 40px 20px;
+  }
+}
+
+/* === AUDIO SVG ICON === */
+.audio-control {
+  position: absolute;
+  top: 25px;    /* o bottom: 25px si prefieres abajo */
+  right: 25px;
+  z-index: 500; /* menor que header (header = 1000) */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toggle-audio {
+  background: rgba(0,0,0,0.6);
+  border: none;
+  padding: 6px;
+  border-radius: 999px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  transition: box-shadow 240ms ease, transform 160ms ease, background 200ms;
+}
+
+.toggle-audio:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0,255,255,0.06);
+  background: rgba(0,255,255,0.06);
+}
+
+/* SVG base */
+.icon-sound {
+  display: block;
+  width: 22px;
+  height: 22px;
+  stroke: #00ffff;
+  stroke-opacity: 0.95;
+  fill: none;
+  stroke-width: 2;
+  transition: transform 220ms ease, opacity 200ms;
+}
+
+/* Speaker solid color */
+.icon-sound .speaker rect,
+.icon-sound .speaker polygon {
+  fill: #00ffff;
+  fill-opacity: 0.06;
+  stroke: #00ffff;
+  stroke-width: 1.2;
+}
+
+/* WAVES hidden when muted */
+.icon-sound.muted .waves {
+  opacity: 0;
+  transform-origin: center;
+}
+
+/* WAVES visible and animated when unmuted */
+.icon-sound:not(.muted) .waves {
+  opacity: 1;
+}
+
+/* Individual wave animation: scale + fade to create pulse */
+.icon-sound:not(.muted) .wave {
+  stroke: #00ffff;
+  stroke-opacity: 0.95;
+  animation: wavePulse 1200ms ease-in-out infinite;
+}
+
+/* Slight phase shift for each wave for organic effect */
+.icon-sound:not(.muted) .wave.w1 { animation-delay: -0.2s; }
+.icon-sound:not(.muted) .wave.w2 { animation-delay: -0.1s; }
+.icon-sound:not(.muted) .wave.w3 { animation-delay: 0s; }
+
+@keyframes wavePulse {
+  0%   { transform: scale(0.9); stroke-opacity: 0.9; }
+  50%  { transform: scale(1.12); stroke-opacity: 0.5; }
+  100% { transform: scale(0.9); stroke-opacity: 0.9; }
+}
+
+/* Small focus ring for accessibility */
+.toggle-audio:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(0,255,255,0.08);
+}
