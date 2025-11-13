@@ -339,3 +339,29 @@ font-size: 0.8rem;
   outline: none;
   box-shadow: 0 0 0 4px rgba(0,255,255,0.08);
 }
+
+
+/* ============================================================
+   FIX PARA MOVILES
+   Garantiza que el video NO pierda información en el ancho.
+   ============================================================ */
+
+@media (max-width: 768px) {
+
+  /* El carrusel usará la altura dinámica real del viewport */
+  .carousel {
+    height: 100dvh !important;
+    max-height: 100dvh !important;
+  }
+
+  /* Mostrar SIEMPRE el ancho completo del video o imagen */
+  .carousel-item video,
+  .carousel-item img {
+    width: 100vw !important;
+    height: auto !important;
+    min-height: unset !important;
+    object-fit: contain !important; /* <-- mantiene TODA la imagen/video visible */
+    object-position: center;
+    background: black; /* evita bordes blancos */
+  }
+}
