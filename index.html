@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Aeternmind:::</title>
+
+ <!-- Fuente principal -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -26,27 +30,92 @@
   <!-- CARRUSEL -->
   <section class="carousel">
     <div class="carousel-item active">
-      <video autoplay muted loop>
-        <source src="video.mp4" type="video/mp4">
+      <video id="mainVideo" autoplay muted loop>
+        <source src="video/video1.mp4" type="video/mp4">
       </video>
     </div>
 
     <div class="carousel-item">
-      <img src="img1.jpg" alt="Innovación y tecnología">
+      <img src="images/ima0.png" alt="Innovación y tecnología">
     </div>
 
     <div class="carousel-item">
-      <img src="img2.jpg" alt="Laboratorios de IA">
+      <img src="images/ima1.png" alt="Laboratorios de IA">
     </div>
 
     <div class="carousel-controls">
       <button class="prev">&#10094;</button>
       <button class="next">&#10095;</button>
     </div>
+
+<!-- 🔊 CONTROL DE AUDIO (SVG) -->
+<div class="audio-control" aria-hidden="false">
+  <button id="toggle-audio" class="toggle-audio" aria-pressed="false" aria-label="Activar o desactivar audio">
+    <!-- SVG: parlante + ondas -->
+    <svg id="icon-sound" class="icon-sound muted" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="28" height="28" role="img" aria-hidden="true">
+      <!-- Parlante -->
+      <g class="speaker">
+        <rect x="6" y="18" width="10" height="28" rx="2"></rect>
+        <polygon points="18,18 34,10 34,54 18,46"></polygon>
+      </g>
+
+      <!-- Ondas (3 niveles) -->
+      <g class="waves">
+        <path class="wave w1" d="M40 24c3 3 6 7 6 8s-3 5-6 8" stroke-width="2" stroke-linecap="round" fill="none"/>
+        <path class="wave w2" d="M44 20c5 5 10 12 10 12s-5 8-10 12" stroke-width="2" stroke-linecap="round" fill="none"/>
+        <path class="wave w3" d="M48 16c7 7 14 17 14 17s-7 11-14 17" stroke-width="2" stroke-linecap="round" fill="none"/>
+      </g>
+    </svg>
+  </button>
+</div>
+
+
   </section>
 
   <script src="script.js"></script>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-logo">
+        <h2>Aeternmind <span>Labs</span></h2>
+        <p>Creating phygital impact together.</p>
+      </div>
+
+      <div class="footer-links">
+        <h3>Links</h3>
+        <ul>
+          <li><a href="#">Research</a></li>
+          <li><a href="#">Projects</a></li>
+          <li><a href="#">Labs</a></li>
+          <li><a href="#">For education</a></li>
+          <li><a href="#">For tech</a></li>
+          <li><a href="#">For wellbeing</a></li>
+          <li><a href="#">Data</a></li>
+          <li><a href="#">Products & services</a></li>
+          <li><a href="#">Donate</a></li>
+          <li><a href="#">Pay</a></li>
+          <li><a href="#">#Theathleteproject</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-contact">
+        <h3>Contact</h3>
+        <p>aeternmind.project@gmail.com</p>
+        <p>aeternmindproject-dev.github.io/aeternmind</p>
+        <div class="social-icons">
+          <a href="#"><img src="icons/icon-Wa.svg" alt="WhatsApp"></a>
+          <a href="#"><img src="icons/icon-ig.svg" alt="Instagram"></a>
+          <a href="#"><img src="icons/icon-ln.svg" alt="LinkedIn"></a>
+          <a href="#"><img src="icons/icon-YT.svg" alt="YouTube"></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p> 2025 Aeternmind Labs — Bogota, Colombia, SouthAmerica</p>
+    </div>
+  </footer>
+
 </body>
 </html>
-
-
