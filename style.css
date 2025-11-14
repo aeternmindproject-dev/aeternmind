@@ -365,3 +365,145 @@ font-size: 0.8rem;
     background: black; /* evita bordes blancos */
   }
 }
+
+
+/* ============================================================
+   MODO INTELIGENTE — CONFIGURACIÓN BASE
+   Estas clases se activan automáticamente desde JS.
+   ============================================================ */
+
+.carousel-item video.smart-contain,
+.carousel-item img.smart-contain {
+  width: 100vw !important;
+  height: auto !important;
+  object-fit: contain !important;
+  background: black !important;
+}
+
+.carousel-item video.smart-cover,
+.carousel-item img.smart-cover {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+}
+
+/* ============================================================
+   TEXTO SUPERPUESTO EN SLIDES DEL CAROUSEL
+   ============================================================ */
+.slide-caption {
+  position: absolute;
+  left: 22px;
+  top: 22px;
+
+  background: rgba(0, 0, 0, 0.10); /* fondo semitransparente */
+  color: #ffffff;
+  font-size: 0.6rem;
+  font-weight: 400;
+  padding: 8px 14px;
+  border-radius: 6px;
+  backdrop-filter: blur(6px);
+
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  pointer-events: none;      /* NO estorba al tocar botones */
+  z-index: 50;               /* debajo del header pero encima del video */
+}
+
+/* Ajuste móvil (más compacto) */
+@media (max-width: 768px) {
+  .slide-caption {
+    font-size: 0.8rem;
+    padding: 6px 10px;
+    left: 14px;
+    top: 14px;
+  }
+}
+
+
+
+/* ============================================================
+   OVERLAY SUPERPUESTO EN SLIDES DEL CAROUSEL
+   ============================================================ */
+
+.smart-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+
+  padding: 16px 26px;
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 400;
+  letter-spacing: 0.4px;
+
+  background: linear-gradient(to top, rgba(0,0,0,0.55), rgba(0,0,0,0));
+  backdrop-filter: blur(8px);
+
+  border-top: 1px solid rgba(255,255,255,0.08);
+
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.35s ease;
+  pointer-events: none;
+}
+
+/* overlay visible solo en el slide activo */
+.carousel-item.active .smart-overlay {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .smart-overlay {
+    padding: 10px 14px;
+    font-size: 0.78rem;
+  }
+}
+
+/* ===============================================
+   LOGO AETERNMIND CON ::: COLOREADOS
+   =============================================== */
+
+.logo {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.logo .dots {
+  display: flex;
+  gap: 2px; /* separación ligera entre los puntos */
+}
+
+.logo .dot {
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+/* Colores según tu ecosistema */
+.logo .tech {
+  color: #7030A0;   /* Purple – Tecnología */
+}
+.logo .edu {
+  color: #00B050;   /* Green – Educación */
+}
+.logo .well {
+  color: #2F5597;   /* Blue – Bienestar */
+}
+
+/* Versión móvil */
+@media (max-width: 768px) {
+  .logo {
+    font-size: 1rem;
+  }
+  .logo .dot {
+    font-size: 1rem;
+  }
+}
+
