@@ -1,4 +1,7 @@
-/* Reset básico */
+/* =========================================================
+   RESET & BASE
+========================================================= */
+
 * {
   margin: 0;
   padding: 0;
@@ -12,7 +15,12 @@ body {
   overflow-x: hidden;
 }
 
-/* HEADER */
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
 header {
   position: fixed;
   top: 0;
@@ -22,30 +30,43 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  z-index: 1000;
   backdrop-filter: blur(10px);
+  z-index: 1000;
 }
 
 .logo {
   font-size: 1rem;
   font-weight: 400;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  color: #fff;
 }
 
-.logo span {
-  color: #00B050;
+.logo .dots {
+  display: flex;
+  gap: 2px;
 }
+
+.logo .dot {
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.logo .tech { color: #7030A0; }
+.logo .edu  { color: #00B050; }
+.logo .well { color: #2F5597; }
 
 nav ul {
   display: flex;
   list-style: none;
   gap: 30px;
-
 }
 
 nav ul li a {
-  text-decoration: none;
   color: #fff;
   font-weight: 400;
+  text-decoration: none;
   transition: color 0.3s;
 }
 
@@ -53,29 +74,35 @@ nav ul li a:hover {
   color: #2F5597;
 }
 
-/* CARRUSEL */
+
+
+
+/* =========================================================
+   CARRUSEL — Estructura Principal
+========================================================= */
+
 .carousel {
   position: relative;
   width: 100%;
   height: 100vh;
   max-height: 100vh;
   overflow: hidden;
-  margin-top: 80px; /* deja espacio por el header fijo */
+  margin-top: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
 .carousel-item {
   position: absolute;
-  top: 0;
-  left: 0;
+  inset: 0;
   width: 100%;
   height: 100%;
   opacity: 0;
-  transition: opacity 1s ease-in-out;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: opacity 1s ease-in-out;
 }
 
 .carousel-item.active {
@@ -83,39 +110,43 @@ nav ul li a:hover {
   z-index: 5;
 }
 
-/* 🔧 Mejora aquí */
 .carousel-item video,
 .carousel-item img {
   width: 100%;
   height: 100%;
-  object-fit: cover;        /* llena el área sin deformar */
-  object-position: center;  /* centra el contenido */
   max-width: 100%;
   max-height: 100%;
   display: block;
+  object-fit: cover;
+  object-position: center;
 }
 
-/* Controles */
+
+
+/* =========================================================
+   CARRUSEL — Controles (Prev / Next)
+========================================================= */
+
 .carousel-controls {
   position: absolute;
-  width: 100%;
   top: 50%;
+  width: 100%;
+  padding: 0 20px;
   display: flex;
   justify-content: space-between;
   transform: translateY(-50%);
   z-index: 10;
-  padding: 0 20px;
 }
 
 .carousel-controls button {
-  background: rgba(0, 0, 0, 0.5);
-  border: none;
-  color: #fff;
-  font-size: 1.5rem;
-  cursor: pointer;
-  border-radius: 50%;
   width: 40px;
   height: 40px;
+  font-size: 1.5rem;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.5);
   transition: background 0.3s;
 }
 
@@ -123,42 +154,238 @@ nav ul li a:hover {
   background: rgba(0, 255, 255, 0.5);
 }
 
-@media (max-width: 768px) {
-  .carousel {
-    height: 100dvh; /* usa altura dinámica en móviles */
-  }
 
-  .carousel-item video,
-  .carousel-item img {
-    object-fit: cover;
-    width: 100vw;
-    height: 100dvh;
+
+/* =========================================================
+   AUDIO CONTROL (SVG)
+========================================================= */
+
+.audio-control {
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  display: flex;
+  z-index: 500;
+}
+
+.toggle-audio {
+  width: 42px;
+  height: 42px;
+  padding: 6px;
+  border: none;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.6);
+  cursor: pointer;
+  transition: transform 0.16s, background 0.2s, box-shadow 0.24s;
+}
+
+.toggle-audio:hover {
+  transform: translateY(-2px);
+  background: rgba(0,255,255,0.06);
+  box-shadow: 0 6px 18px rgba(0,255,255,0.06);
+}
+
+.icon-sound {
+  width: 22px;
+  height: 22px;
+  display: block;
+  fill: none;
+  stroke: #00ffff;
+  stroke-width: 2;
+  stroke-opacity: 0.95;
+  transition: transform 220ms ease, opacity 200ms;
+}
+
+.icon-sound .speaker rect,
+.icon-sound .speaker polygon {
+  fill: #00ffff;
+  fill-opacity: 0.06;
+  stroke: #00ffff;
+  stroke-width: 1.2;
+}
+
+/* muted → sin ondas */
+.icon-sound.muted .waves {
+  opacity: 0;
+  transform-origin: center;
+}
+
+/* activado → ondas animadas */
+.icon-sound:not(.muted) .waves {
+  opacity: 1;
+}
+
+.icon-sound:not(.muted) .wave {
+  stroke: #00ffff;
+  stroke-opacity: 0.95;
+  animation: wavePulse 1200ms ease-in-out infinite;
+}
+
+.icon-sound:not(.muted) .wave.w1 { animation-delay: -0.2s; }
+.icon-sound:not(.muted) .wave.w2 { animation-delay: -0.1s; }
+.icon-sound:not(.muted) .wave.w3 { animation-delay: 0s; }
+
+@keyframes wavePulse {
+  0%   { transform: scale(0.9); stroke-opacity: 0.9; }
+  50%  { transform: scale(1.12); stroke-opacity: 0.5; }
+  100% { transform: scale(0.9); stroke-opacity: 0.9; }
+}
+
+
+
+
+
+/* =========================================================
+   CAROUSEL — Slide Text Caption
+========================================================= */
+
+.slide-caption {
+  position: absolute;
+  top: 22px;
+  left: 22px;
+  padding: 8px 14px;
+
+  font-size: 0.6rem;
+  font-weight: 400;
+  color: #fff;
+
+  background: rgba(0, 0, 0, 0.10);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  backdrop-filter: blur(6px);
+
+  pointer-events: none;
+  z-index: 50;
+}
+
+
+
+
+/* =========================================================
+   OVERLAY ESTILO OPENAI
+========================================================= */
+
+.smart-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+
+  padding: 16px 26px;
+
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: #fff;
+
+  background: linear-gradient(to top, rgba(0,0,0,0.55), rgba(0,0,0,0));
+  backdrop-filter: blur(8px);
+  border-top: 1px solid rgba(255,255,255,0.08);
+
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.35s ease;
+
+  pointer-events: none;
+}
+
+.carousel-item.active .smart-overlay {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+
+
+/* =========================================================
+   SMARTFIT — Cover / Contain dinámico
+========================================================= */
+
+.carousel-item video.smart-contain,
+.carousel-item img.smart-contain {
+  width: 100vw !important;
+  height: auto !important;
+  object-fit: contain !important;
+  background: black !important;
+}
+
+.carousel-item video.smart-cover,
+.carousel-item img.smart-cover {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+}
+
+/* ============================================
+   SECCIÓN: TARJETA DINÁMICA AETERNMIND
+   ============================================ */
+.dynamic-section {
+  width: 100%;
+  padding: 80px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #000;
+}
+
+.dynamic-card {
+  width: min(900px, 90%);
+  padding: 40px;
+  border-radius: 22px;
+
+  background: rgba(20, 20, 20, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  box-shadow:
+    0px 0px 25px rgba(112, 48, 160, 0.25),   /* purple */
+    0px 0px 15px rgba(0, 176, 80, 0.25),    /* green */
+    0px 0px 20px rgba(47, 85, 151, 0.25);   /* blue */
+
+  backdrop-filter: blur(12px);
+
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Efecto hover elegante */
+.dynamic-card:hover {
+  transform: translateY(-6px);
+  box-shadow:
+    0px 0px 35px rgba(112, 48, 160, 0.35),
+    0px 0px 25px rgba(0, 176, 80, 0.35),
+    0px 0px 30px rgba(47, 85, 151, 0.35);
+}
+
+.dynamic-text {
+  color: #fff;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  opacity: 0;
+  animation: fadeIn 1.5s ease forwards;
+}
+
+/* Animación de entrada */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  header {
-    padding: 15px 20px;
-  }
 
-  nav ul {
-    gap: 15px;
-  }
+/* =========================================================
+   FOOTER
+========================================================= */
 
-  .logo {
-    font-size: 1.2rem;
-  }
-}
-
-
-
-/* FOOTER */
 footer {
   background: #000;
-  border-top: 1px solid #111;
   padding: 60px 10%;
-  color: #fff;
+  border-top: 1px solid #111;
   display: flex;
   flex-direction: column;
   gap: 40px;
@@ -168,12 +395,11 @@ footer {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 40px;
-  align-items: flex-start;
 }
 
 .footer-logo h2 {
-  font-weight: 600;
   font-size: 1.5rem;
+  font-weight: 600;
 }
 
 .footer-logo span {
@@ -181,23 +407,22 @@ footer {
 }
 
 .footer-logo p {
-  font-size: 0.9rem;
   margin-top: 10px;
   color: #aaa;
+  font-size: 0.9rem;
   line-height: 1.6;
 }
 
 .footer-links h3,
 .footer-contact h3 {
-  margin-bottom: 10px;
   color: #00B050;
   font-weight: 500;
-
+  margin-bottom: 10px;
 }
 
 .footer-links ul {
   list-style: none;
-font-size: 0.8rem;
+  font-size: 0.8rem;
 }
 
 .footer-links ul li {
@@ -215,15 +440,14 @@ font-size: 0.8rem;
 }
 
 .footer-contact p {
-  font-size: 0.8rem;
   margin-bottom: 5px;
+  font-size: 0.8rem;
 }
 
 .social-icons {
   margin-top: 10px;
   display: flex;
   gap: 15px;
-  font-size: 0.8rem;
 }
 
 .social-icons img {
@@ -240,270 +464,56 @@ font-size: 0.8rem;
 
 .footer-bottom {
   text-align: center;
-  border-top: 1px solid #111;
   padding-top: 15px;
-  font-size: 0.85rem;
+  border-top: 1px solid #111;
   color: #555;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  footer {
-    padding: 40px 20px;
-  }
-}
-
-/* === AUDIO SVG ICON === */
-.audio-control {
-  position: absolute;
-  top: 25px;    /* o bottom: 25px si prefieres abajo */
-  right: 25px;
-  z-index: 500; /* menor que header (header = 1000) */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.toggle-audio {
-  background: rgba(0,0,0,0.6);
-  border: none;
-  padding: 6px;
-  border-radius: 999px;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 42px;
-  height: 42px;
-  transition: box-shadow 240ms ease, transform 160ms ease, background 200ms;
-}
-
-.toggle-audio:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(0,255,255,0.06);
-  background: rgba(0,255,255,0.06);
-}
-
-/* SVG base */
-.icon-sound {
-  display: block;
-  width: 22px;
-  height: 22px;
-  stroke: #00ffff;
-  stroke-opacity: 0.95;
-  fill: none;
-  stroke-width: 2;
-  transition: transform 220ms ease, opacity 200ms;
-}
-
-/* Speaker solid color */
-.icon-sound .speaker rect,
-.icon-sound .speaker polygon {
-  fill: #00ffff;
-  fill-opacity: 0.06;
-  stroke: #00ffff;
-  stroke-width: 1.2;
-}
-
-/* WAVES hidden when muted */
-.icon-sound.muted .waves {
-  opacity: 0;
-  transform-origin: center;
-}
-
-/* WAVES visible and animated when unmuted */
-.icon-sound:not(.muted) .waves {
-  opacity: 1;
-}
-
-/* Individual wave animation: scale + fade to create pulse */
-.icon-sound:not(.muted) .wave {
-  stroke: #00ffff;
-  stroke-opacity: 0.95;
-  animation: wavePulse 1200ms ease-in-out infinite;
-}
-
-/* Slight phase shift for each wave for organic effect */
-.icon-sound:not(.muted) .wave.w1 { animation-delay: -0.2s; }
-.icon-sound:not(.muted) .wave.w2 { animation-delay: -0.1s; }
-.icon-sound:not(.muted) .wave.w3 { animation-delay: 0s; }
-
-@keyframes wavePulse {
-  0%   { transform: scale(0.9); stroke-opacity: 0.9; }
-  50%  { transform: scale(1.12); stroke-opacity: 0.5; }
-  100% { transform: scale(0.9); stroke-opacity: 0.9; }
-}
-
-/* Small focus ring for accessibility */
-.toggle-audio:focus {
-  outline: none;
-  box-shadow: 0 0 0 4px rgba(0,255,255,0.08);
+  font-size: 0.85rem;
 }
 
 
-/* ============================================================
-   FIX PARA MOVILES
-   Garantiza que el video NO pierda información en el ancho.
-   ============================================================ */
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
 
 @media (max-width: 768px) {
 
-  /* El carrusel usará la altura dinámica real del viewport */
+  header { padding: 15px 20px; }
+  nav ul { gap: 15px; }
+
+  .logo { font-size: 1rem; }
+  .logo .dot { font-size: 1rem; }
+
   .carousel {
     height: 100dvh !important;
     max-height: 100dvh !important;
   }
 
-  /* Mostrar SIEMPRE el ancho completo del video o imagen */
   .carousel-item video,
   .carousel-item img {
     width: 100vw !important;
     height: auto !important;
-    min-height: unset !important;
-    object-fit: contain !important; /* <-- mantiene TODA la imagen/video visible */
-    object-position: center;
-    background: black; /* evita bordes blancos */
+    object-fit: contain !important;
+    background: black;
   }
-}
 
-
-/* ============================================================
-   MODO INTELIGENTE — CONFIGURACIÓN BASE
-   Estas clases se activan automáticamente desde JS.
-   ============================================================ */
-
-.carousel-item video.smart-contain,
-.carousel-item img.smart-contain {
-  width: 100vw !important;
-  height: auto !important;
-  object-fit: contain !important;
-  background: black !important;
-}
-
-.carousel-item video.smart-cover,
-.carousel-item img.smart-cover {
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: cover !important;
-}
-
-/* ============================================================
-   TEXTO SUPERPUESTO EN SLIDES DEL CAROUSEL
-   ============================================================ */
-.slide-caption {
-  position: absolute;
-  left: 22px;
-  top: 22px;
-
-  background: rgba(0, 0, 0, 0.10); /* fondo semitransparente */
-  color: #ffffff;
-  font-size: 0.6rem;
-  font-weight: 400;
-  padding: 8px 14px;
-  border-radius: 6px;
-  backdrop-filter: blur(6px);
-
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  pointer-events: none;      /* NO estorba al tocar botones */
-  z-index: 50;               /* debajo del header pero encima del video */
-}
-
-/* Ajuste móvil (más compacto) */
-@media (max-width: 768px) {
   .slide-caption {
     font-size: 0.8rem;
     padding: 6px 10px;
     left: 14px;
     top: 14px;
   }
-}
 
-
-
-/* ============================================================
-   OVERLAY SUPERPUESTO EN SLIDES DEL CAROUSEL
-   ============================================================ */
-
-.smart-overlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-
-  padding: 16px 26px;
-  color: #ffffff;
-  font-size: 0.9rem;
-  font-weight: 400;
-  letter-spacing: 0.4px;
-
-  background: linear-gradient(to top, rgba(0,0,0,0.55), rgba(0,0,0,0));
-  backdrop-filter: blur(8px);
-
-  border-top: 1px solid rgba(255,255,255,0.08);
-
-  opacity: 0;
-  transform: translateY(10px);
-  transition: all 0.35s ease;
-  pointer-events: none;
-}
-
-/* overlay visible solo en el slide activo */
-.carousel-item.active .smart-overlay {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Responsivo */
-@media (max-width: 768px) {
   .smart-overlay {
     padding: 10px 14px;
     font-size: 0.78rem;
   }
-}
 
-/* ===============================================
-   LOGO AETERNMIND CON ::: COLOREADOS
-   =============================================== */
-
-.logo {
-  font-family: 'Poppins', sans-serif;
-  font-size: 1rem;
-  font-weight: 400;
-  color: #ffffff;
-  display: flex;
-  align-items: center;
-  gap: 2px;
-}
-
-.logo .dots {
-  display: flex;
-  gap: 2px; /* separación ligera entre los puntos */
-}
-
-.logo .dot {
-  font-weight: 700;
-  font-size: 1rem;
-  line-height: 1;
-}
-
-/* Colores según tu ecosistema */
-.logo .tech {
-  color: #7030A0;   /* Purple – Tecnología */
-}
-.logo .edu {
-  color: #00B050;   /* Green – Educación */
-}
-.logo .well {
-  color: #2F5597;   /* Blue – Bienestar */
-}
-
-/* Versión móvil */
-@media (max-width: 768px) {
-  .logo {
-    font-size: 1rem;
-  }
-  .logo .dot {
-    font-size: 1rem;
+  footer {
+    padding: 40px 20px;
   }
 }
+
+
 
