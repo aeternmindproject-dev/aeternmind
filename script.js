@@ -6,6 +6,7 @@
    - Silenciamiento al cambiar slide
    - Pausa de videos inactivos
    - Ajuste responsive del carrusel
+   - Modo inteligente de visualización (cover / contain)
 ========================================================= */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -19,32 +20,98 @@ document.addEventListener('DOMContentLoaded', () => {
   const audioButton = document.getElementById('toggle-audio');
   const icon = document.getElementById('icon-sound');
 
-  /* =============== FUNCIONES PRINCIPALES =============== */
+  /* ============================================================
+     MODO INTELIGENTE DE VISUALIZACIÓN (cover / contain)
+     Detecta proporciones del video y la pantalla
+     ============================================================ */
 
-  // Ajusta el alto del carrusel dinámicamente (según el header)
+  function applySmartVideoFit() {
+    const activeSlide = document.querySelector('.carousel-item.active');
+    if (!activeSlide) return;
+
+    const media = activeSlide.querySelector('video, img');
+    if (!media) return;
+
+    // Obtener proporción real del media
+    const mediaRatio = media.videoWidth && media.videoHeight
+      ? media.videoWidth / media.videoHeight
+      : media.naturalWidth && media.naturalHeight
+        ? media.naturalWidth / media.naturalHeight
+        : null;
+
+    if (!mediaRatio) return;
+
+    const screenRatio = window.innerWidth / window.innerHeight;
+
+    // Reset de clases previas
+    media.classList.remove('smart-cover', 'smart-contain');
+
+    /*
+       Lógica:
+       Si el video es mucho más ancho → contain
+       Si es más alto o similar → cover
+    */
+    if (mediaRatio > screenRatio) {
+      media.classList.add('smart-contain');   // Mostrar video completo
+    } else {
+      media.classList.add('smart-cover');     // Llenar pantalla
+    }
+  }
+
+  // Recalcular visualización al cambiar orientación o tamaño de pantalla
+  window.addEventListener('resize', () => {
+    clearTimeout(window.__ratioTimeout);
+    window.__ratioTimeout = setTimeout(applySmartVideoFit, 150);
+  });
+
+  // Recalcular cuando cada video esté listo
+  document.querySelectorAll('.carousel-item video').forEach(video => {
+    video.addEventListener('loadedmetadata', applySmartVideoFit);
+  });
+
+  function smartFitOnSlideChange() {
+    setTimeout(applySmartVideoFit, 150);
+  }
+
+  /* ============================================================
+     AJUSTE DE ALTURA DEL CARRUSEL SEGÚN EL HEADER
+     ============================================================ */
+
   function adjustCarouselHeight() {
     const header = document.querySelector('header');
     const carousel = document.querySelector('.carousel');
+
     if (!carousel) return;
+
     const headerHeight = header ? header.offsetHeight : 0;
+
     carousel.style.height = `${window.innerHeight - headerHeight}px`;
     carousel.style.marginTop = `${headerHeight}px`;
   }
 
-  // Muestra el slide indicado y pausa videos no visibles
+  window.addEventListener('load', adjustCarouselHeight);
+  window.addEventListener('resize', () => {
+    clearTimeout(window.__resizeTimeout);
+    window.__resizeTimeout = setTimeout(adjustCarouselHeight, 150);
+  });
+
+
+  /* ============================================================
+     FUNCIÓN PRINCIPAL DEL CARRUSEL
+     ============================================================ */
   function showSlide(i) {
     items.forEach((item, idx) => {
       item.classList.toggle('active', idx === i);
     });
 
-    // Silenciar y resetear ícono de audio
+    // Silenciar video y resetear icono
     if (mainVideo && audioButton && icon) {
       mainVideo.muted = true;
       audioButton.setAttribute('aria-pressed', 'false');
       icon.classList.add('muted');
     }
 
-    // Pausar videos de slides no activos
+    // Pausar videos fuera del slide activo
     items.forEach((item, idx) => {
       const vid = item.querySelector('video');
       if (vid) {
@@ -55,17 +122,20 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
     });
+
+    // Aplicar modo inteligente
+    smartFitOnSlideChange();
   }
 
-  /* =============== CONTROLES DEL CARRUSEL =============== */
+  /* ============================================================
+     CONTROLES DEL CARRUSEL
+     ============================================================ */
 
-  // Botón siguiente
   document.querySelector('.next').addEventListener('click', () => {
     index = (index + 1) % total;
     showSlide(index);
   });
 
-  // Botón anterior
   document.querySelector('.prev').addEventListener('click', () => {
     index = (index - 1 + total) % total;
     showSlide(index);
@@ -77,53 +147,42 @@ document.addEventListener('DOMContentLoaded', () => {
     showSlide(index);
   }, 25000);
 
-  /* =============== CONTROL DE AUDIO (SVG ANIMADO) =============== */
+  /* ============================================================
+     CONTROL DE AUDIO (SVG ANIMADO)
+     ============================================================ */
+
   if (audioButton && icon) {
     let audioEnabled = false;
+
     icon.classList.add('muted');
     audioButton.setAttribute('aria-pressed', 'false');
 
     audioButton.addEventListener('click', (e) => {
       e.preventDefault();
 
-      // Busca el video activo (puede ser otro slide)
-      let activeVideo = mainVideo;
-      if (!activeVideo) {
-        const activeSlide = document.querySelector('.carousel-item.active');
-        activeVideo = activeSlide ? activeSlide.querySelector('video') : null;
-      }
+      // Busca el video del slide activo
+      const activeSlide = document.querySelector('.carousel-item.active');
+      let activeVideo = activeSlide ? activeSlide.querySelector('video') : mainVideo;
 
-      // Cambia el estado del audio
       audioEnabled = !audioEnabled;
 
       if (activeVideo) {
         activeVideo.muted = !audioEnabled;
+
         if (audioEnabled) {
-          const playPromise = activeVideo.play();
-          if (playPromise && typeof playPromise.then === 'function') {
-            playPromise.catch(err => {
-              console.warn('No se pudo reproducir con audio automáticamente:', err);
-            });
-          }
+          activeVideo.play().catch(() => {});
         }
       }
 
-      // Actualiza el ícono SVG y accesibilidad
+      // Actualizar icono SVG
       icon.classList.toggle('muted', !audioEnabled);
       audioButton.setAttribute('aria-pressed', audioEnabled ? 'true' : 'false');
     });
-  } else {
-    console.error("No se encontró el botón o ícono de audio en el DOM.");
   }
 
-  /* =============== EVENTOS DE AJUSTE RESPONSIVE =============== */
-  window.addEventListener('load', adjustCarouselHeight);
-  window.addEventListener('resize', () => {
-    clearTimeout(window.__resizeTimeout);
-    window.__resizeTimeout = setTimeout(adjustCarouselHeight, 150);
-  });
-
-  // Ajuste inicial
+  /* ============================================================
+     INICIALIZACIÓN
+     ============================================================ */
   adjustCarouselHeight();
   showSlide(0);
 });
