@@ -188,80 +188,34 @@ document.addEventListener("DOMContentLoaded", () => {
   startAutoSlide();
 });
 
-/* CARGAR TEXTO DINÁMICO CON DEBUG y FALLBACKS */
-function loadDynamicText() {
-  const targetEl = document.getElementById("dynamic-text");
-  if (!targetEl) {
-    console.error("[DynamicText] Elemento #dynamic-text no encontrado en DOM.");
-    return;
-  }
+/* ============================================================
+   Cargar texto dinámico desde archivo JSON local
+============================================================ */
 
-  // --- CONFIG: cambia aquí por tu ID de Drive o el enlace que prefieras ---
-  const DRIVE_FILE_ID = "1OVh3Xvzl7SGYfJEUcX7I7UFgkzlBatiO"; // <-- reemplaza por tu ID real
-  const driveUrl = `https://drive.google.com/uc?export=download&id=${DRIVE_FILE_ID}`;
+function loadDynamicTextJSON() {
+  const container = document.getElementById("dynamic-text");
 
-  // opcional: si tu contenido está en Google Docs (document), usar:
-  // const DOC_ID = "1OVh3Xvzl7SGYfJEUcX7I7UFgkzlBatiO";
-  // const googleDocsTxtUrl = `https://docs.google.com/document/d/${DOC_ID}/export?format=txt`;
-
-  // Puedes añadir un fallback público (github raw) si lo deseas:
-  const githubRaw = ""; // deja vacío o pon https://raw.githubusercontent.com/usuario/repo/main/file.txt
-
-  // Mensaje de carga
-  targetEl.innerText = "Cargando contenido desde Google Drive...";
-
-  // Helper para fetch con logging
-  function tryFetch(url) {
-    console.log(`[DynamicText] intentando fetch -> ${url}`);
-    return fetch(url, { method: "GET", cache: "no-cache" })
-      .then(async (res) => {
-        console.log(`[DynamicText] respuesta: ${res.status} ${res.statusText} (${url})`);
-        const contentType = res.headers.get("content-type") || "";
-        console.log(`[DynamicText] content-type: ${contentType}`);
-
-        // Si devuelve HTML es probable que sea la página de login/errors
-        if (!res.ok) {
-          throw new Error(`Status ${res.status}`);
-        }
-
-        // Si content-type indica html, probablemente Drive devolvió una página => error
-        if (contentType.includes("text/html") && !contentType.includes("text/plain")) {
-          const text = await res.text();
-          console.warn("[DynamicText] Se obtuvo HTML en lugar de texto. Primeros 300 chars:\n", text.slice(0,300));
-          throw new Error("La respuesta es HTML — probable problema de permisos o Drive intermedio.");
-        }
-
-        return res.text();
-      });
-  }
-
-  // Try 1: Google Drive direct download
-  tryFetch(driveUrl)
-    .then(text => {
-      targetEl.innerText = text;
-      console.log("[DynamicText] Contenido cargado desde Google Drive OK.");
-    })
-    .catch(errDrive => {
-      console.warn("[DynamicText] Error al cargar desde Drive:", errDrive);
-
-      // Try 2: Google Docs export (descomenta y configura si usas Docs)
-      // tryFetch(googleDocsTxtUrl)...
-      // For now try GitHub raw if provided
-      if (githubRaw) {
-        tryFetch(githubRaw)
-          .then(text => {
-            targetEl.innerText = text;
-            console.log("[DynamicText] Contenido cargado desde GitHub raw OK.");
-          })
-          .catch(errGH => {
-            console.error("[DynamicText] Falló GitHub raw también:", errGH);
-            targetEl.innerText = "No se pudo cargar el contenido (Drive/GH). Revisa permisos o consola.";
-          });
-      } else {
-        targetEl.innerText = "No se pudo cargar el contenido desde Drive. Verifica: permisos del archivo (Anyone with link), ID correcto, y que la página se sirva por http(s). Revisa consola para más detalles.";
+  fetch("data/info.json")
+    .then(response => {
+      if (!response.ok) {
+        throw new Error("No se pudo cargar el JSON");
       }
+      return response.json();
+    })
+    .then(data => {
+      container.innerHTML = `
+        <h2 style="margin-bottom: 15px; font-weight:600; color:#00B050; font-size:1.4rem;">
+          ${data.titulo}
+        </h2>
+        <p style="font-size:1rem; line-height:1.7;">
+          ${data.descripcion}
+        </p>
+      `;
+    })
+    .catch(error => {
+      console.error("Error cargando JSON:", error);
+      container.innerHTML = "No se pudo cargar el contenido.";
     });
 }
 
-// Ejecutar cuando DOM listo
-document.addEventListener("DOMContentLoaded", loadDynamicText);
+document.addEventListener("DOMContentLoaded", loadDynamicTextJSON);
