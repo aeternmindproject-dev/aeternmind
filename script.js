@@ -195,7 +195,7 @@ document.addEventListener("DOMContentLoaded", () => {
 function loadDynamicTextJSON() {
   const container = document.getElementById("dynamic-text");
 
-  fetch("data/info.json")
+  fetch("info.json")
     .then(response => {
       if (!response.ok) {
         throw new Error("No se pudo cargar el JSON");
@@ -219,3 +219,4 @@ function loadDynamicTextJSON() {
 }
 
 document.addEventListener("DOMContentLoaded", loadDynamicTextJSON);
+
