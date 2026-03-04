@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Aeternmind:::</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo" aria-label="Ir al inicio">
+    Aeternmind
+    <span class="dots" aria-hidden="true">
+      <span class="dot tech">:</span>
+      <span class="dot edu">:</span>
+      <span class="dot well">:</span>
+    </span>
+  </a>
+
+  <nav aria-label="Navegación principal">
+    <ul>
+      <li><a href="#" aria-label="Research">Research</a></li>
+      <li><a href="#" aria-label="Products">Products</a></li>
+      <li><a href="#" aria-label="Learn">Learn</a></li>
+      <li><a href="#" aria-label="Fundation">Fundation</a></li>
+      <li><a href="#" aria-label="Development">Development</a></li>
+      <li><a href="#" aria-label="IA">IA</a></li>
+      <li><a href="#" aria-label="Fields">Fields</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <section class="carousel" aria-roledescription="carousel">
+
+    <article class="carousel-item active" role="group" aria-roledescription="slide" aria-label="Slide 1">
+      <video id="mainVideo" autoplay muted loop playsinline>
+        <source src="video/video1.mp4" type="video/mp4">
+      </video>
+
+      <div class="smart-overlay">Video generated with AI • Aeternmind Labs</div>
+      <div class="slide-caption">John Hamilton R. • Founder Aeternmind</div>
+
+      <div class="hero-text">
+        <h1>Aeternmind Labs</h1>
+        <p>Donde la tecnología, la educación y el bienestar se encuentran.</p>
+      </div>
+    </article>
+
+    <article class="carousel-item" role="group" aria-roledescription="slide" aria-label="Slide 2">
+      <img src="images/ima0.png" alt="Innovación y tecnología">
+      <div class="smart-overlay">• Aeternmind Labs</div>
+      <div class="slide-caption">A::</div>
+      <div class="hero-text">
+        <h1>Investigación aplicada</h1>
+        <p>Datos y experimentación para impacto real.</p>
+      </div>
+    </article>
+
+    <article class="carousel-item" role="group" aria-roledescription="slide" aria-label="Slide 3">
+      <img src="images/ima1.png" alt="Laboratorios de IA">
+      <div class="smart-overlay">• Aeternmind Labs</div>
+      <div class="slide-caption">A::</div>
+      <div class="hero-text">
+        <h1>Aprendizaje y bienestar</h1>
+        <p>Soluciones phygital centradas en las personas.</p>
+      </div>
+    </article>
+
+    <div class="carousel-controls">
+      <button class="prev" aria-label="Anterior slide">&#10094;</button>
+      <button class="next" aria-label="Siguiente slide">&#10095;</button>
+    </div>
+
+    <div class="audio-control">
+      <button id="toggle-audio" class="toggle-audio" aria-pressed="false" aria-label="Activar o desactivar audio">
+        <!-- SVG sin cambios -->
+      </button>
+    </div>
+  </section>
+
+  <section class="dynamic-section">
+    <div class="dynamic-card">
+      <div id="dynamic-text" class="dynamic-text">Cargando contenido...</div>
+    </div>
+
+    <elevenlabs-convai agent-id="agent_8901k61ep7paeehap2cfaf84hvt3"></elevenlabs-convai>
+    <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async></script>
+  </section>
+</main>
+
+
+<footer>
+  <div class="footer-container">
+
+    <div class="footer-logo">
+      <a href="index.html" class="footer-brand">
+        Aeternmind
+        <span class="dots">
+          <span class="dot tech">:</span>
+          <span class="dot edu">:</span>
+          <span class="dot well">:</span>
+        </span>
+      </a>
+      <p>Creating phygital impact together.</p>
+    </div>
+
+    <!-- Columnas mantenidas EXACTAMENTE igual -->
+    <div class="footer-links">
+      <h3>Links</h3>
+      <ul>
+        <li><a href="#">Research</a></li>
+        <li><a href="#">Projects</a></li>
+        <li><a href="#">Labs</a></li>
+        <li><a href="#">Data</a></li>
+        <li><a href="#">Download</a></li>
+        <li><a href="#">IA</a></li>
+        <li><a href="#">Pay</a></li>
+        <li><a href="#">Donate</a></li>
+        <li><a href="#">#theathleteproject</a></li>                
+      </ul>
+    </div>
+
+    <div class="footer-links">
+      <h3>Links</h3>
+      <ul>
+        <li><a href="#">Tech</a></li>
+        <li><a href="#">Well-being</a></li>
+        <li><a href="#">Education</a></li>
+        <li><a href="#">Health</a></li>
+        <li><a href="#">#theathleteproject</a></li>  
+        <li><a href="#">Foundation</a></li>
+        <li><a href="#">A:::</a></li>
+        <li><a href="#">A:::</a></li>
+        <li><a href="#">A:::</a></li>
+        
+      </ul>
+    </div>
+
+    <div class="footer-links">
+      <h3>Contact</h3>
+      <ul>
+        <li><a href="mailto:aeternmind.project@gmail.com">aeternmind.project@gmail.com</a></li>
+        <li><a href="https://whatsapp.com/channel/0029VbCU2nf1dAw1KISQ761z">WhatsApp Channel</a></li>
+        <li><a href="https://www.instagram.com/aeternmind/">Instagram</a></li>
+        <li><a href="https://www.linkedin.com/in/aeternmind-project">LinkedIn</a></li>
+        <li><a href="https://www.youtube.com/@Aeternmind">YouTube</a></li>        
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <p>2026 Aeternmind Labs — Bogotá, Colombia, South America</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
