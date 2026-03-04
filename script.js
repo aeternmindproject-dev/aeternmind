@@ -176,7 +176,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const container = document.getElementById("dynamic-text");
     if (!container) return;
 
-    fetch("./info.json", {cache: "no-cache"})
+    fetch("info.json", {cache: "no-cache"})
       .then(r => {
         if (!r.ok) throw new Error(`Status ${r.status}`);
         return r.json();
@@ -203,5 +203,6 @@ container.innerHTML = `
   loadDynamicTextJSON();
   scheduleSmartFit(240);
 });
+
 
 
