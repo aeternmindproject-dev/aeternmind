@@ -1,86 +1,84 @@
 /* =========================================================
-   RESET & BASE
+   style.css — Aeternmind (Optimized - Componentized)
+   Mantener Poppins como fuente y estética dark + glow
 ========================================================= */
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+/* -------------------------
+   RESET & BASE
+--------------------------*/
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html,body { height: 100%; }
 
 body {
-  background-color: #000;
+  background: #000;
   color: #fff;
   font-family: 'Poppins', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
 
-
-
-/* =========================================================
+/* -------------------------
    HEADER
-========================================================= */
-
+--------------------------*/
 header {
   position: fixed;
   top: 0;
   width: 100%;
   padding: 20px 50px;
-  background: rgba(0, 0, 0, 0.7);
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
+  background: #000;
   backdrop-filter: blur(10px);
   z-index: 1000;
+  color: #fff; /* corregido */
 }
 
-.logo {
-  font-size: 1rem;
-  font-weight: 400;
-  display: flex;
+.logo, .footer-brand {
+  text-decoration: none;
+  color: inherit;
+  display: inline-flex;
   align-items: center;
-  gap: 2px;
-  color: #fff;
+  gap: 5px;
 }
 
-.logo .dots {
-  display: flex;
-  gap: 2px;
-}
+.logo { font-size: 1.2rem; font-weight: 400; }
 
-.logo .dot {
+.dots { display: inline-flex; gap: 4px; align-items:center; }
+
+.dot {
   font-weight: 700;
-  font-size: 1rem;
+  font-size: 1.2rem;
+  line-height:1;
 }
 
-.logo .tech { color: #7030A0; }
-.logo .edu  { color: #00B050; }
-.logo .well { color: #2F5597; }
+.tech { color:#7030A0; }
+.edu { color:#00B050; }
+.well { color:#2F5597; }
 
 nav ul {
-  display: flex;
-  list-style: none;
-  gap: 30px;
+  display:flex;
+  gap:3px;
+  list-style:none;
+  align-items:center;
 }
 
-nav ul li a {
-  color: #fff;
-  font-weight: 400;
-  text-decoration: none;
-  transition: color 0.3s;
+nav a {
+  color:#fff;
+  text-decoration:none;
+  font-weight:400;
+  margin-left: 10px;
+  font-size: 0.70rem;
+  transition: color .25s ease;
 }
 
-nav ul li a:hover {
-  color: #2F5597;
-}
+nav a:hover { color:#2F5597; }
 
 
-
-
-/* =========================================================
-   CARRUSEL — Estructura Principal
-========================================================= */
-
+/* -------------------------
+   CAROUSEL (Layout)
+--------------------------*/
 .carousel {
   position: relative;
   width: 100%;
@@ -93,15 +91,16 @@ nav ul li a:hover {
   justify-content: center;
 }
 
+/* Slide base */
 .carousel-item {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   opacity: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   transition: opacity 1s ease-in-out;
 }
 
@@ -114,462 +113,397 @@ nav ul li a:hover {
 .carousel-item img {
   width: 100%;
   height: 100%;
-  max-width: 100%;
-  max-height: 100%;
-  display: block;
+  display:block;
   object-fit: cover;
   object-position: center;
+  max-width:100%;
+  max-height:100%;
 }
 
-
-
-/* =========================================================
-   CARRUSEL — Controles (Prev / Next)
-========================================================= */
-
+/* CONTROLS */
 .carousel-controls {
   position: absolute;
-  top: 50%;
-  width: 100%;
+  top:50%;
+  left:0;
+  width:100%;
   padding: 0 20px;
-  display: flex;
-  justify-content: space-between;
   transform: translateY(-50%);
-  z-index: 10;
+  display:flex;
+  justify-content:space-between;
+  z-index:10;
 }
 
 .carousel-controls button {
-  width: 40px;
-  height: 40px;
-  font-size: 1.5rem;
-  color: #fff;
+  width:40px;
+  height:40px;
+  border-radius:50%;
   border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  background: rgba(0, 0, 0, 0.5);
-  transition: background 0.3s;
+  background: rgba(0,0,0,0.5);
+  color:#fff;
+  font-size:1.5rem;
+  cursor:pointer;
+  transition: background .2s ease, transform .12s;
 }
 
 .carousel-controls button:hover {
-  background: rgba(0, 255, 255, 0.5);
+  transform: translateY(-3px);
+  background: rgba(0,255,255,0.12);
 }
 
-
-
-/* =========================================================
-   AUDIO CONTROL (SVG)
-========================================================= */
-
+/* AUDIO CONTROL */
 .audio-control {
   position: absolute;
   top: 25px;
   right: 25px;
-  display: flex;
   z-index: 500;
 }
 
 .toggle-audio {
-  width: 42px;
-  height: 42px;
-  padding: 6px;
-  border: none;
-  border-radius: 999px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width:42px;
+  height:42px;
+  padding:6px;
+  border-radius:999px;
+  border:none;
   background: rgba(0,0,0,0.6);
-  cursor: pointer;
-  transition: transform 0.16s, background 0.2s, box-shadow 0.24s;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  transition: transform .16s, box-shadow .24s;
 }
 
 .toggle-audio:hover {
   transform: translateY(-2px);
-  background: rgba(0,255,255,0.06);
   box-shadow: 0 6px 18px rgba(0,255,255,0.06);
+  background: rgba(0,255,255,0.03);
 }
 
 .icon-sound {
-  width: 22px;
-  height: 22px;
-  display: block;
-  fill: none;
-  stroke: #00ffff;
-  stroke-width: 2;
-  stroke-opacity: 0.95;
-  transition: transform 220ms ease, opacity 200ms;
+  width:22px;
+  height:22px;
+  display:block;
+  stroke:#fff;
+  stroke-width:2;
+  fill:none;
+  stroke-opacity:.95;
+  transition:opacity .2s;
 }
 
 .icon-sound .speaker rect,
 .icon-sound .speaker polygon {
-  fill: #00ffff;
-  fill-opacity: 0.06;
-  stroke: #00ffff;
-  stroke-width: 1.2;
+  fill:#fff;
+  fill-opacity:.06;
+  stroke:#fff;
+  stroke-width:1.2;
 }
 
-/* muted → sin ondas */
 .icon-sound.muted .waves {
-  opacity: 0;
-  transform-origin: center;
+  opacity:0;
+  transform-origin:center;
 }
 
-/* activado → ondas animadas */
-.icon-sound:not(.muted) .waves {
-  opacity: 1;
-}
+.icon-sound:not(.muted) .waves { opacity:1; }
 
 .icon-sound:not(.muted) .wave {
-  stroke: #00ffff;
-  stroke-opacity: 0.95;
+  stroke:#00ffff;
+  stroke-opacity:.95;
   animation: wavePulse 1200ms ease-in-out infinite;
 }
 
-.icon-sound:not(.muted) .wave.w1 { animation-delay: -0.2s; }
-.icon-sound:not(.muted) .wave.w2 { animation-delay: -0.1s; }
-.icon-sound:not(.muted) .wave.w3 { animation-delay: 0s; }
+.icon-sound:not(.muted) .wave.w1 { animation-delay:-0.2s; }
+.icon-sound:not(.muted) .wave.w2 { animation-delay:-0.1s; }
 
 @keyframes wavePulse {
-  0%   { transform: scale(0.9); stroke-opacity: 0.9; }
-  50%  { transform: scale(1.12); stroke-opacity: 0.5; }
-  100% { transform: scale(0.9); stroke-opacity: 0.9; }
+  0% { transform: scale(.9); stroke-opacity:.9 }
+  50% { transform: scale(1.12); stroke-opacity:.5 }
+  100% { transform: scale(.9); stroke-opacity:.9 }
 }
 
-
-
-
-
-/* =========================================================
-   CAROUSEL — Slide Text Caption
-========================================================= */
-
-.slide-caption {
-  position: absolute;
-  top: 22px;
-  left: 22px;
-  padding: 8px 14px;
-
-  font-size: 0.6rem;
-  font-weight: 400;
-  color: #fff;
-
-  background: rgba(0, 0, 0, 0.10);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 6px;
-  backdrop-filter: blur(6px);
-
-  pointer-events: none;
-  z-index: 50;
-}
-
-
-
-
-/* =========================================================
-   OVERLAY ESTILO OPENAI
-========================================================= */
-
-.smart-overlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-
-  padding: 16px 26px;
-
-  font-size: 0.9rem;
-  font-weight: 400;
-  color: #fff;
-
-  background: linear-gradient(to top, rgba(0,0,0,0.55), rgba(0,0,0,0));
-  backdrop-filter: blur(8px);
-  border-top: 1px solid rgba(255,255,255,0.08);
-
-  opacity: 0;
-  transform: translateY(10px);
-  transition: all 0.35s ease;
-
-  pointer-events: none;
-}
-
-.carousel-item.active .smart-overlay {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-
-
-
-/* =========================================================
-   SMARTFIT — Cover / Contain dinámico
-========================================================= */
-
-.carousel-item video.smart-contain,
-.carousel-item img.smart-contain {
-  width: 100vw !important;
-  height: auto !important;
-  object-fit: contain !important;
-  background: black !important;
-}
-
-.carousel-item video.smart-cover,
-.carousel-item img.smart-cover {
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: cover !important;
-}
-
-/* ============================================
-   SECCIÓN: TARJETA DINÁMICA AETERNMIND
-   ============================================ */
-.dynamic-section {
-  width: 100%;
-  padding: 80px 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #000;
-}
-
-.dynamic-card {
-  width: min(900px, 90%);
-  padding: 40px;
-  border-radius: 100px;
-
-  background: rgba(20, 20, 20, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-
-  box-shadow:
-    0px 0px 25px rgba(112, 48, 160, 0.25),   /* purple */
-    0px 0px 15px rgba(0, 176, 80, 0.25),    /* green */
-    0px 0px 20px rgba(47, 85, 151, 0.25);   /* blue */
-
-  backdrop-filter: blur(12px);
-
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-/* Efecto hover elegante */
-.dynamic-card:hover {
-  transform: translateY(-6px);
-  box-shadow:
-    0px 0px 35px rgba(112, 48, 160, 0.35),
-    0px 0px 25px rgba(0, 176, 80, 0.35),
-    0px 0px 30px rgba(47, 85, 151, 0.35);
-}
-
-.dynamic-text {
-  color: #fff;
-  font-size: 1.05rem;
-  line-height: 1.7;
-  opacity: 0;
-  animation: fadeIn 1.5s ease forwards;
-}
-
-/* Animación de entrada */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-
-/* =========================================================
-   FOOTER
-========================================================= */
-
-footer {
-  background: #000;
-  padding: 60px 10%;
-  border-top: 1px solid #111;
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-}
-
-.footer-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 40px;
-}
-
-.footer-logo h2 {
-  font-size: 1.5rem;
-  font-weight: 600;
-}
-
-.footer-logo span {
-  color: #00B050;
-}
-
-.footer-logo p {
-  margin-top: 10px;
-  color: #aaa;
-  font-size: 0.9rem;
-  line-height: 1.6;
-}
-
-.footer-links h3,
-.footer-contact h3 {
-  color: #00B050;
-  font-weight: 500;
-  margin-bottom: 10px;
-}
-
-.footer-links ul {
-  list-style: none;
-  font-size: 0.8rem;
-}
-
-.footer-links ul li {
-  margin-bottom: 8px;
-}
-
-.footer-links ul li a {
-  color: #ccc;
-  text-decoration: none;
-  transition: color 0.3s;
-}
-
-.footer-links ul li a:hover {
-  color: #275597;
-}
-
-.footer-contact p {
-  margin-bottom: 5px;
-  font-size: 0.8rem;
-}
-
-.social-icons {
-  margin-top: 10px;
-  display: flex;
-  gap: 15px;
-}
-
-.social-icons img {
-  width: 22px;
-  height: 22px;
-  filter: invert(1);
-  opacity: 0.7;
-  transition: opacity 0.3s;
-}
-
-.social-icons img:hover {
-  opacity: 1;
-}
-
-.footer-bottom {
-  text-align: center;
-  padding-top: 15px;
-  border-top: 1px solid #111;
-  color: #555;
-  font-size: 0.85rem;
-}
-
-
-
-
-/* =========================================================
-   RESPONSIVE
-========================================================= */
-
-@media (max-width: 768px) {
-
-  header { padding: 15px 20px; }
-  nav ul { gap: 15px; }
-
-  .logo { font-size: 1rem; }
-  .logo .dot { font-size: 1rem; }
-
-  .carousel {
-    height: 100dvh !important;
-    max-height: 100dvh !important;
-  }
-
-  .carousel-item video,
-  .carousel-item img {
-    width: 100vw !important;
-    height: auto !important;
-    object-fit: contain !important;
-    background: black;
-  }
-
-  .slide-caption {
-    font-size: 0.8rem;
-    padding: 6px 10px;
-    left: 14px;
-    top: 14px;
-  }
-
-  .smart-overlay {
-    padding: 10px 14px;
-    font-size: 0.78rem;
-  }
-
-  footer {
-    padding: 40px 20px;
-  }
-}
-
-/* ===============================
-   HERO TEXT — AETERNMIND V2
-   Alineado a la izquierda, centrado vertical,
-   responsivo para todas las pantallas
-================================ */
-
+/* HERO TEXT */
 .hero-text {
   position: absolute;
-  top: 50%;                      /* centrado vertical */
-  left: 70px;                    /* alineado a la izquierda */
-  transform: translateY(-50%);   /* centra verticalmente */
-  
-  max-width: 45%;                /* evita que ocupe más de medio slide */
+  top: 50%;
+  left: 70px;
+  transform: translateY(-50%);
+  max-width: 50%;
   color: #fff;
   z-index: 60;
   pointer-events: none;
 }
 
 .hero-text h1 {
-  font-size: clamp(2rem, 5vw, 4.5rem);  /* auto-ajuste: móvil → monitor */
-  font-weight: 700;
-  line-height: 1.1;
-  margin-bottom: 1px;
-
-  text-shadow: 
-    0 0 25px rgba(255,255,255,0.35),
-    0 0 60px rgba(0,255,255,0.25);
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight:800;
+  line-height:1.05;
+  margin-bottom: 0.5px;
+  text-shadow: 0 0 30px rgba(255,255,255,0.32);
 }
 
 .hero-text p {
-  font-size: clamp(1rem, 2vw, 1.4rem);
-  font-weight: 300;
-  max-width: 90%;
-  text-shadow: 
-    0 0 10px rgba(255,255,255,0.25);
+  font-size: clamp(0.5rem, 2vw, 1rem);
+  font-weight:200;
+  line-height:1.4;
+  max-width:85%;
 }
 
-/* ====== HERO RESPONSIVE PARA MÓVILES (VERSIÓN CORREGIDA) ====== */
-@media (max-width: 768px) {
+/* SLIDE CAPTION */
+.slide-caption {
+  position:absolute;
+  left:22px;
+  top:22px;
+  background: rgba(0,0,0,0.10);
+  color: #fff;
+  font-size:0.7rem;
+  padding:8px 12px;
+  border-radius:6px;
+  border:1px solid rgba(255,255,255,0.12);
+  backdrop-filter: blur(6px);
+  pointer-events:none;
+  z-index:50;
+}
 
+.smart-overlay {
+  position:absolute;
+  left:0;
+  bottom:0;
+  width:100%;
+  padding: 16px 26px;
+  color:#fff;
+  font-size:0.9rem;
+  background: linear-gradient(to top, rgba(0,0,0,0.55), rgba(0,0,0,0));
+  border-top: 1px solid rgba(255,255,255,0.08);
+  backdrop-filter: blur(8px);
+  opacity:0;
+  transform: translateY(10px);
+  transition: all .35s ease;
+  pointer-events:none;
+}
+
+.carousel-item.active .smart-overlay {
+  opacity:1;
+  transform: translateY(0);
+}
+
+/* SMART FIT */
+.carousel-item video.smart-contain,
+.carousel-item img.smart-contain {
+  width:100vw !important;
+  height:auto !important;
+  object-fit: contain !important;
+  object-position:center;
+  background:black !important;
+}
+
+.carousel-item video.smart-cover,
+.carousel-item img.smart-cover {
+  width:100% !important;
+  height:100% !important;
+  object-fit: cover !important;
+  object-position:center;
+}
+
+/* DYNAMIC CARD */
+.dynamic-section {
+  width:100%;
+  padding: 80px 20px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:#000;
+  }
+
+.dynamic-card {
+  width: min(900px, 90%);
+  padding: 36px;
+  border-radius: 22px;
+  background: rgba(20,20,20,0.62);
+  border:1px solid rgba(255,255,255,0.06);
+  box-shadow:
+    0 0 25px rgba(112,48,160,0.20),
+    0 0 15px rgba(0,176,80,0.12),
+    0 0 20px rgba(47,85,151,0.12);
+  backdrop-filter: blur(12px);
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+
+.dynamic-card:hover { transform: translateY(-6px); }
+
+.dynamic-text {
+  color:#fff;
+  font-size: 0.8rem;
+  line-height:1.7;
+  opacity:0;
+  animation: fadeIn 1s ease forwards;
+  
+}
+
+.dynamic-title {
+  margin-bottom:12px;
+  font-weight:600;
+  color:#00B050;
+  font-size:1rem;
+}
+
+.dynamic-description {
+  font-size:1.7rem;
+  line-height:1.6;
+  text-align: center;
+  }
+
+@keyframes fadeIn {
+  from { opacity:0; transform: translateY(8px);}
+  to { opacity:1; transform: translateY(0);}
+}
+
+.cards-section {
+  padding: 80px 10%;
+  background: #ffffff;
+}
+
+.cards-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.card {
+  flex: 1;
+  min-width: 280px;
+  background: #f8f8f8;
+  padding: 20px;
+  border-radius: 6px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  margin-bottom: 15px;
+}
+
+.card h3 {
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+}
+
+.card p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* FOOTER */
+footer {
+  background:#000;
+  padding:60px 10%;
+  border-top:1px solid #111;
+  color:#fff;
+  display:flex;
+  flex-direction:column;
+  gap:40px;
+}
+
+.footer-container {
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+  gap:25px;
+  align-items:flex-start;
+  font-size:1rem;
+}
+
+.footer-logo p {
+  color:#aaa;
+  margin-top:1px;
+  line-height:1.6;
+  font-size: 0.7rem;
+}
+
+.footer-links h3,
+.footer-contact h3 {
+  color:#00B050;
+  font-weight:500;
+  font-size: 0.8rem;
+  margin-bottom:10px;
+}
+
+.footer-links ul {
+  list-style:none;
+  font-size:0.8rem;
+}
+
+.footer-links a {
+  color:#ccc;
+  text-decoration:none;
+  font-size: 0.8rem;
+  transition: color .2s ease;
+}
+
+.footer-links a:hover { color:#275597; }
+
+.social-icons {
+  display:flex;
+  gap:15px;
+  margin-top:10px;
+}
+
+.social-icons img {
+  width:22px;
+  height:22px;
+  filter:invert(1);
+  opacity:.75;
+  transition: opacity .2s;
+}
+
+.social-icons img:hover { opacity:1; }
+
+.footer-bottom {
+  text-align:center;
+  border-top:1px solid #111;
+  padding-top:10px;
+  color:#555;
+  font-size:0.85rem;
+}
+
+/* RESPONSIVE */
+@media (max-width:768px) {
+  header { padding:15px 20px; }
+  nav ul { gap:12px; }
+  .logo { font-size:1rem; }
   .hero-text {
-    top: 40%;               /* en móvil va ARRIBA, no abajo */
-    bottom: auto;
-    left: 20px;
-    transform: none;
-    max-width: 80%;
+    left:30px;
+    max-width:90%;
+    top:60%;
+    transform:translateY(-50%);
   }
-
   .hero-text h1 {
-    font-size: clamp(2.7rem, 5vw, 3rem);
-    line-height: 1.2;
+    font-size: clamp(1.8rem, 6vw, 2.2rem);
   }
-
   .hero-text p {
-    font-size: clamp(0.85rem, 4vw, 1rem);
-    line-height: 1.4;
+    font-size: clamp(0.5rem, 3.5vw, 0.9rem);
   }
+  .carousel {
+    height:100dvh !important;
+    max-height:100dvh !important;
+  }
+  .carousel-item video,
+  .carousel-item img {
+    width:100%;
+    height:100%;
+    object-fit: cover;
+    object-position:center;
+  }
+  .slide-caption {
+    font-size:0.75rem;
+    left:14px;
+    top:14px;
+  }
+  footer { padding:40px 20px; }
+
+
 }
